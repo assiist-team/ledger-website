@@ -254,7 +254,7 @@
       color: #6e6e73;
       text-align: center;
       max-width: 800px;
-      margin: 0 auto;
+      margin: 0 auto 32px;
     }
 
     /* Problem Section */
@@ -404,6 +404,10 @@
       background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
     }
     
+    .feature-media img.image-align-top {
+      object-position: top center;
+    }
+    
     /* image sizing is handled inside the desktop media query so mobile is unaffected */
 
     /* Category Section */
@@ -533,6 +537,16 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
       border-color: #9C8160;
     }
+    
+    /* Featured/Annual pricing card: larger outer shadow to make it stand out */
+    .pricing-card.featured {
+      position: relative;
+      z-index: 5;
+      transform: translateY(-4px);
+      /* reduced spread so shadow doesn't encroach on neighboring card */
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.10), 0 6px 18px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
 
     .pricing-badge {
       display: inline-block;
@@ -545,6 +559,37 @@
       padding: 6px 12px;
       border-radius: 12px;
       margin-bottom: 24px;
+    }
+    
+    /* Savings pill — highlighted for annual discount */
+    .savings-pill {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      background: #9C8160;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .original-price {
+      color: #6e6e73;
+      /* removed strikethrough for clarity on annual pricing */
+      font-size: 18px;
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .discounted-price {
+      font-size: 40px;
+      font-weight: 700;
+      color: #1d1d1f;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     .pricing-card h3 {
@@ -818,10 +863,10 @@
       </a>
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#start" class="nav-cta">Try it free</a></li>
+        <li><a href="#pricing" class="nav-cta">Get Started</a></li>
       </ul>
     </div>
   </nav>
@@ -833,8 +878,7 @@
     <h1 class="hero-headline">More designing.<br>Less spreadsheeting.</h1>
     <p class="hero-subheadline">The inventory and budget management app built for interior designers who want to focus on creativity—not spreadsheets.</p>
     <div class="hero-cta-group">
-      <a href="#start" class="btn btn-primary">Start your free trial</a>
-      <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
+      <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
     </div>
     <!-- hero visual removed per request -->
   </section>
@@ -1018,7 +1062,9 @@
         <p class="feature-description">Found a great chair but it didn't work for this client? Can't return that lamp but know you'll use it later? Move items into your business inventory with storage location tags.</p>
         <p class="feature-description"><strong>Turn "I know I have that somewhere" into "It's in Storage Area B, shelf 3."</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/business_inventory.png" alt="Business inventory list showing items with storage tags" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -1053,7 +1099,9 @@
         <p class="feature-description">The app already tracked every purchase and who paid for it. Create a clean invoice showing exactly who owes what—with all the details and total balance. Bill anytime during the project or all at once at the end. No spreadsheets, no memory games.</p>
         <p class="feature-description"><strong>Stop spending your weekend trying to remember which credit card bought what. Click once, invoice ready.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/invoice.png" alt="Client invoice preview showing line items and totals" style="width:100%; height:100%; object-fit:cover; object-position:top center; display:block;">
+      </div>
     </section>
   </div>
 
@@ -1067,6 +1115,21 @@
         <p class="feature-description"><strong>Build trust with real numbers. Get referrals with proof. Turn happy clients into repeat clients.</strong></p>
       </div>
       <div class="feature-media"></div>
+    </section>
+  </div>
+
+  <!-- Feature: Client Savings Summary -->
+  <div class="feature-module-wrapper section-alt">
+    <section class="feature-module reverse">
+      <div class="feature-text">
+        <div class="feature-eyebrow">Client Summary</div>
+        <h2 class="feature-headline">Make the savings undeniable</h2>
+        <p class="feature-description">Deliver a polished summary showing what the client paid versus market value, with the savings callout front and center. It’s the proof point that turns satisfied clients into enthusiastic referrals.</p>
+        <p class="feature-description"><strong>The highlighted savings line shows the value you created in a single glance.</strong></p>
+      </div>
+      <div class="feature-media">
+        <img src="images/client_summary.png" alt="Client summary screenshot with the savings highlighted in green" class="image-align-top" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -1122,24 +1185,11 @@
     <h2 class="section-headline">Simple, transparent pricing</h2>
     <p class="section-subheadline">Choose the plan that fits your business</p>
     <div class="pricing-container">
+      <!-- Monthly (left) -->
       <div class="pricing-card">
-        <span class="pricing-badge">Try it free</span>
-        <h3>Free Trial</h3>
-        <div class="pricing-price">$0</div>
-        <p class="pricing-description">14 days • No commitment</p>
-        <ul class="pricing-features">
-          <li>Try every feature</li>
-          <li>Use with real projects</li>
-          <li>See how much time you save</li>
-          <li>No commitment required</li>
-        </ul>
-        <a href="#start" class="btn btn-primary" style="width: 100%;">Start free trial</a>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Pro</h3>
+        <h3>Monthly</h3>
         <div class="pricing-price">$29<span>/month</span></div>
-        <p class="pricing-description">Complete inventory and budget management for your projects</p>
+        <p class="pricing-description">No commitment. Cancel anytime.</p>
         <ul class="pricing-features">
           <li>Unlimited projects</li>
           <li>Custom budget categories</li>
@@ -1150,7 +1200,29 @@
           <li>Client value summaries</li>
           <li>Email support</li>
         </ul>
-        <a href="#start" class="btn btn-secondary" style="width: 100%;">Get started</a>
+        <a href="#start" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+      </div>
+
+      <!-- Annual (right) -->
+      <div class="pricing-card featured">
+        <h3>Annual <span aria-hidden="true" title="Most popular" style="display:inline-block; vertical-align:middle; margin-left:6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle; width:18px; height:18px;">
+              <path d="M12 .587l3.09 6.26 6.91.99-5 4.87 1.18 6.88L12 17.77l-6.18 3.84L7 13.7 2 8.83l6.91-.99L12 .587z" fill="#FFD700"/>
+            </svg>
+          </span></h3>
+        <div class="pricing-price">$174<span>/year</span></div>
+        <p class="pricing-description"><span class="savings-pill">Get 6 Months Free</span></p>
+        <ul class="pricing-features">
+          <li>Unlimited projects</li>
+          <li>Custom budget categories</li>
+          <li>Real-time budget tracking</li>
+          <li>Transaction & receipt capture</li>
+          <li>Business inventory management</li>
+          <li>Professional invoicing</li>
+          <li>Client value summaries</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#start" class="btn btn-primary" style="width: 100%;">Get Started</a>
       </div>
     </div>
   </section>
@@ -1182,6 +1254,10 @@
       <h3 class="faq-question">What's the difference between the invoice and client summary?</h3>
       <p class="faq-answer">The invoice reconciles who owes whom and helps you get reimbursed. The client summary shows purchase price vs. market value to demonstrate the savings you delivered—great for building relationships and getting referrals.</p>
     </div>
+    <div class="faq-item">
+      <h3 class="faq-question">Can I use this on my phone?</h3>
+      <p class="faq-answer">Yes. Ledger is built mobile-first so you can do everything from your phone — capture purchases, add receipts, manage budgets, and send invoices. The interface is optimized for quick, touch-friendly workflows so you can run projects on-the-go without missing a beat.</p>
+    </div>
   </section>
 
   <!-- Final CTA -->
@@ -1189,8 +1265,7 @@
     <h2>Ready to design with less stress?</h2>
     <p>Stop drowning in spreadsheets and lost receipts. Take control of your projects and get back to what you do best.</p>
     <div class="hero-cta-group">
-      <a href="#" class="btn btn-primary">Start your free trial</a>
-      <a href="#" class="btn btn-secondary" style="background: transparent; border-color: #ffffff; color: #ffffff;">Schedule a demo</a>
+      <a href="#pricing" class="btn btn-secondary" style="background: transparent; border-color: #ffffff; color: #ffffff;">Get Started</a>
     </div>
   </section>
 
