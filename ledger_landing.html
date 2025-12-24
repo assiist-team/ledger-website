@@ -62,6 +62,25 @@
     .nav-logo img {
       display: block;
     }
+    
+    /* Hero logo size (adjustable) */
+    .hero-logo {
+      /* increased to 1.5x the previous size per request */
+      width: clamp(105px, 13.5vw, 285px);
+      height: auto;
+      display: block;
+      margin: 0 auto 24px;
+    }
+
+    /* Inline brand label to appear before the eyebrow text */
+    .hero-brand-inline {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1d1d1f;
+      margin-right: 8px;
+      letter-spacing: -0.01em;
+      display: inline-block;
+    }
 
     .nav-links {
       display: flex;
@@ -95,14 +114,14 @@
 
     /* Hero Section */
     .hero {
-      margin-top: 60px;
+      margin-top: 40px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 80px 20px 120px;
+      padding: 40px 20px 80px;
       background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
     }
 
@@ -177,7 +196,7 @@
       width: 100%;
       max-width: 1200px;
       height: 600px;
-      background: linear-gradient(145deg, #f5f5f7 0%, #e8e8ed 100%);
+      background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
       display: flex;
@@ -272,6 +291,19 @@
       margin-top: 32px;
     }
 
+    .problem-arrow {
+      display: flex;
+      justify-content: center;
+      margin-top: 60px;
+      margin-bottom: 0;
+    }
+
+    .problem-arrow svg {
+      width: 80px;
+      height: 80px;
+      color: #9C8160;
+    }
+
     /* Feature Module */
     .feature-module {
       padding: 100px 40px;
@@ -348,10 +380,13 @@
 
     .feature-media {
       width: 100%;
-      height: 500px;
-      background: linear-gradient(145deg, #f5f5f7 0%, #e8e8ed 100%);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      /* keep default max-height for mobile and base styles */
+      max-height: 500px;
+      background: #ffffff;
       border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 -8px 12px rgba(0, 0, 0, 0.04), 0 12px 16px rgba(0, 0, 0, 0.16);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -368,6 +403,8 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
     }
+    
+    /* image sizing is handled inside the desktop media query so mobile is unaffected */
 
     /* Category Section */
     .category-section {
@@ -658,20 +695,51 @@
     /* Responsive */
     @media (min-width: 768px) {
       .feature-module {
-        grid-template-columns: 1fr 1fr;
+        /* make the media column 50% wider than the text column so images grow via aspect-ratio */
+        grid-template-columns: 1fr 1.5fr;
+        grid-template-areas: "text media";
         gap: 60px;
+        /* align items to the top so text and media line up vertically */
+        align-items: start;
       }
 
       .feature-text {
         max-width: 100%;
+        grid-area: text;
+        align-self: start;
+      }
+
+      .feature-media {
+        grid-area: media;
+        align-self: start;
       }
 
       .feature-module.reverse {
-        direction: rtl;
+        /* when layout is reversed, place media left and text right */
+        grid-template-columns: 1.5fr 1fr;
+        grid-template-areas: "media text";
       }
 
-      .feature-module.reverse > * {
-        direction: ltr;
+      /* Desktop-only: enlarge the media container and scale the contained image */
+      .feature-media {
+        max-height: 625px;
+      }
+
+      .feature-media img {
+        width: 125%;
+        height: 125%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      
+      /* Allow opt-out for images that must not be cropped (use class on the img) */
+      .feature-media img.feature-media-image-no-crop {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center !important;
+        display: block !important;
       }
     }
 
@@ -681,7 +749,7 @@
       }
 
       .hero {
-        padding: 60px 20px 80px;
+        padding: 40px 20px 60px;
       }
 
       .section {
@@ -736,6 +804,9 @@
       .feature-module:nth-child(3) { animation-delay: 0.3s; }
     }
   </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="ledger_logo.png">
+  <link rel="apple-touch-icon" href="ledger_logo.png">
+  <link rel="shortcut icon" href="ledger_logo.png">
 </head>
 <body>
 
@@ -757,14 +828,15 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-eyebrow">For <strong>Interior Designers</strong> by <strong>Interior Designers</strong></div>
+    <img src="ledger_logo.png" alt="Ledger logo" class="hero-logo">
+    <div class="hero-eyebrow"><span class="hero-brand-inline">Ledger.</span> For <strong>Interior Designers</strong> by <strong>Interior Designers</strong></div>
     <h1 class="hero-headline">More designing.<br>Less spreadsheeting.</h1>
     <p class="hero-subheadline">The inventory and budget management app built for interior designers who want to focus on creativity—not spreadsheets.</p>
     <div class="hero-cta-group">
       <a href="#start" class="btn btn-primary">Start your free trial</a>
       <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
     </div>
-    <div class="hero-visual"></div>
+    <!-- hero visual removed per request -->
   </section>
 
   <!-- Problem -->
@@ -773,6 +845,11 @@
       <h2>You're an incredible designer.<br>But the business side is exhausting.</h2>
       <p>Between juggling multiple projects, tracking dozens of purchases, managing budgets, and billing clients—the administrative burden can crush your creative flow.</p>
       <p class="highlight">You deserve tools that match your talent.</p>
+      <div class="problem-arrow">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
   </section>
 
@@ -796,7 +873,9 @@
         <p class="feature-description">Your dashboard shows every client with their budget status right there. Switch between projects instantly. See who's on track, who's getting close, who needs attention—all in 10 seconds.</p>
         <p class="feature-description"><strong>Stop the mental math across 5 different projects. Just look at your dashboard.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/projects.png" alt="Projects overview showing project cards with budgets" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -809,7 +888,9 @@
         <p class="feature-description">When you blow the budget, it comes out of YOUR design fee. Create categories for furniture, movers, storage, install crew—whatever you need. See exactly what's left in each bucket so you never overspend on sofas and have nothing left for the install team.</p>
         <p class="feature-description"><strong>Set it up once at the start, then let it protect your income on every purchase.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/set_budget_categories.png" alt="Set budget interface showing category creation" style="width:auto; height:100%; display:block; transform:scale(1.01); transform-origin:center; will-change: transform;">
+      </div>
     </section>
   </div>
 
@@ -819,10 +900,12 @@
       <div class="feature-text">
         <div class="feature-eyebrow">Budget Tracking</div>
         <h2 class="feature-headline">Shop without the stomach knots</h2>
-        <p class="feature-description">No more standing in a showroom wondering if you can afford that chair. Progress bars update automatically as you add purchases. Check your remaining budget in 3 seconds and buy with confidence.</p>
+        <p class="feature-description">No more standing in a showroom wondering if you can afford that sectional. Progress bars update automatically as you add purchases. Check your remaining budget in 3 seconds and buy with confidence.</p>
         <p class="feature-description"><strong>Stop guessing. Every purchase backed by real numbers, not your best guess.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/track_budgets.png" alt="Budget progress bars showing spent and remaining amounts" style="width:100%; height:auto; display:block;">
+      </div>
     </section>
   </div>
 
@@ -844,7 +927,9 @@
         <p class="feature-description">Record purchases while standing in line—or later from your car. Add the amount, store, budget category, who paid, tax, etc. Snap photos of your cart and receipt right there. By the time you get home, you've forgotten half the details.</p>
         <p class="feature-description"><strong>Track who paid for each purchase so you know who owes what—not 6 months later when you're doing mental math.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/receipt_images.png" alt="Receipt images and receipt capture interface" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -857,7 +942,9 @@
         <p class="feature-description">Stop digging through emails and bags looking for receipts. Every item has its photo, price, receipt, room assignment, and SKU attached. Search by name, filter by room, filter by store, or just scroll and spot it visually.</p>
         <p class="feature-description"><strong>Your brain is for design, not remembering which pillow came from which store three weeks ago.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/item_search.png" alt="Item search interface showing item cards with photos and a search bar" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -876,10 +963,12 @@
       <div class="feature-text">
         <div class="feature-eyebrow">Return Tracking</div>
         <h2 class="feature-headline">Stop losing money on returns</h2>
-        <p class="feature-description">Client hates the pillow? Tap it once to mark for return. When install is done and your trunk is full of rejects, you have a clean list of exactly what to return and where. No more forgetting $300 worth of stuff in your garage.</p>
+        <p class="feature-description">Client hates the throw in the living room? Tap it once to mark for return. When install is done and your trunk is full of rejects, you have a clean list of exactly what to return and where. No more forgetting $300 worth of stuff in your garage.</p>
         <p class="feature-description"><strong>Filter to show only returns—complete with receipt photos and store info.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/returns.png" alt="Returns list and return workflow" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -888,10 +977,12 @@
       <div class="feature-text">
         <div class="feature-eyebrow">Instant Lookup</div>
         <h2 class="feature-headline">Look professional under pressure</h2>
-        <p class="feature-description">Client asking where you bought the lamp while you're trying to work? Pull it up in 5 seconds. Every item shows where you bought it, the receipt photo, and all the details. Need to check if you can return this chair? The receipt is on your phone, attached to that exact item.</p>
+        <p class="feature-description">Client asking how much the accent chair cost while you're trying to work? Pull it up on your phone in 5 seconds. Every item shows where you bought it and the key details, with a link to the transaction that contains the receipt.</p>
         <p class="feature-description"><strong>Stop digging through emails and bags while the client waits. Look like a pro.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/item_detail.png" alt="Item detail view showing item images and a link to the transaction with the receipt" style="width:100%; max-width:100%; height:auto; object-fit:cover; display:block;">
+      </div>
     </section>
   </div>
 
@@ -903,7 +994,9 @@
         <p class="feature-description">Need to see just the living room items? Type "living room" and see only what goes there—no scrolling through 200 items. Search by store to find everything from West Elm. Or just scroll photos and spot items visually.</p>
         <p class="feature-description"><strong>Multiple ways to find exactly what you need, right when you need it. No confusion, no delays.</strong></p>
       </div>
-      <div class="feature-media"></div>
+      <div class="feature-media">
+        <img src="images/room_search.png" alt="Room search interface showing filtered items by room" class="feature-media-image-no-crop" style="width:100%; height:100%; object-fit:contain; object-position:center; display:block;">
+      </div>
     </section>
   </div>
 
