@@ -112,6 +112,103 @@
       opacity: 1 !important;
     }
 
+    /* Mobile Menu Styles */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #1d1d1f;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: saturate(180%) blur(20px);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      padding: 40px 22px 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .mobile-nav-links a {
+      font-size: 15px;
+      font-weight: 400;
+      color: #1d1d1f;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+      padding: 8px 0;
+    }
+
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a.nav-cta {
+      opacity: 1;
+    }
+
+    .mobile-nav-links a.nav-cta {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 14px;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+
+      .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+    }
+
     /* Hero Section */
     .hero {
       margin-top: 40px;
@@ -273,7 +370,7 @@
       font-size: clamp(32px, 4vw, 48px);
       font-weight: 600;
       letter-spacing: -0.02em;
-      line-height: 1.15;
+      line-height: 1.2;
       margin-bottom: 24px;
     }
 
@@ -899,6 +996,113 @@
       }
     }
 
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      margin: 2% auto;
+      padding: 0;
+      border-radius: 24px;
+      width: 50%;
+      max-width: 600px;
+      height: 80vh;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .modal-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 24px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #1d1d1f;
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10001;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+      background: #ffffff;
+      transform: scale(1.1);
+    }
+
+    /* Responsive modal */
+    @media (max-width: 767px) {
+      .modal-content {
+        width: 95%;
+        height: 85vh;
+        margin: 1% auto;
+        border-radius: 16px;
+      }
+
+      .modal-iframe {
+        border-radius: 16px;
+      }
+
+      .modal-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+
+      /* Modal header responsive padding */
+      .modal-content > div:first-child {
+        padding: 16px 20px 12px !important;
+      }
+
+      /* Better mobile spacing for problem section */
+      .problem-section {
+        padding: 80px 20px !important;
+      }
+
+      .problem-content {
+        max-width: 100% !important;
+      }
+
+      .problem-content h2 {
+        font-size: clamp(28px, 6vw, 32px) !important;
+        line-height: 1.25 !important;
+      }
+
+      .problem-content p {
+        font-size: 19px !important;
+        line-height: 1.5 !important;
+      }
+
+      .problem-content .highlight {
+        font-size: 21px !important;
+      }
+    }
+
     /* Smooth animations */
     @media (prefers-reduced-motion: no-preference) {
       .feature-module,
@@ -928,6 +1132,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="ledger_logo.png">
   <link rel="apple-touch-icon" href="ledger_logo.png">
   <link rel="shortcut icon" href="ledger_logo.png">
+
+  <!-- Preconnect and DNS prefetch for order form domain -->
+  <link rel="preconnect" href="https://orderledger.nine4.co">
+  <link rel="dns-prefetch" href="https://orderledger.nine4.co">
 </head>
 <body>
 
@@ -945,14 +1153,29 @@
         <li><a href="#our-story">Our Story</a></li>
         <li><a href="#pricing" class="nav-cta">Get Started</a></li>
       </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <ul class="mobile-nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#our-story">Our Story</a></li>
+        <li><a href="#pricing" class="nav-cta">Get Started</a></li>
+      </ul>
     </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
     <img src="ledger_logo.png" alt="Ledger logo" class="hero-logo">
-    <div class="hero-eyebrow"><span class="hero-brand-inline">Ledger.</span> For <strong>Interior Designers</strong> by <strong>Interior Designers</strong></div>
-    <h1 class="hero-headline">More designing.<br>Less spreadsheeting.</h1>
+    <div class="hero-eyebrow"><span class="hero-brand-inline">Ledger.</span><br> For <strong>Interior Designers</strong> by <strong>Interior Designers</strong></div>
+    <h1 class="hero-headline">More designing.<br>Less admin.</h1>
     <p class="hero-subheadline">The inventory and budget management app built for interior designers who want to focus on creativity—not spreadsheets.</p>
     <div class="hero-cta-group">
       <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
@@ -963,7 +1186,7 @@
   <!-- Problem -->
   <section id="features" class="problem-section">
     <div class="problem-content">
-      <h2>You're an incredible designer.<br>But the business side is exhausting.</h2>
+      <h2>You're an incredible designer. But the business side is exhausting.</h2>
       <p>Between juggling multiple projects, tracking dozens of purchases, managing budgets, and billing clients—the administrative burden can crush your creative flow.</p>
       <p class="highlight">You deserve tools that match your talent.</p>
       <div class="problem-arrow">
@@ -980,7 +1203,7 @@
   
   <div class="section-wrapper section-wrapper-alt">
     <section class="section">
-      <h2 class="section-headline">Budget Planning & Tracking</h2>
+      <h2 class="section-headline">Budget Management</h2>
       <p class="section-subheadline">Know what you can spend before you spend it—on every project, every time</p>
     </section>
   </div>
@@ -1266,7 +1489,7 @@
           <li>Client value summaries</li>
           <li>Email support</li>
         </ul>
-        <a href="#start" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+        <a href="javascript:void(0)" onclick="openModal('https://orderledger.nine4.co/monthly')" class="btn btn-secondary" style="width: 100%;">Get Started</a>
       </div>
 
       <!-- Quarterly (buy 3, get 9 months free) -->
@@ -1284,7 +1507,7 @@
           <li><strong>All Monthly features</strong></li>
           <li>Plus $522 Free service</li>
         </ul>
-        <a href="#start" class="btn btn-primary" style="width: 100%;">Get Started</a>
+        <a href="javascript:void(0)" onclick="openModal('https://orderledger.nine4.co/quarterly')" class="btn btn-primary" style="width: 100%;">Get Started</a>
       </div>
     </div>
   </section>
@@ -1375,6 +1598,164 @@
       <p class="footer-legal">© 2025 Ledger. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Modal for Order Forms -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div style="text-align: center; padding: 30px 24px 20px;">
+        <h2 style="font-size: clamp(32px, 4vw, 48px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: #1d1d1f; margin-bottom: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">Get Started Today</h2>
+        <p style="font-size: clamp(20px, 2vw, 28px); font-weight: 400; line-height: 1.4; color: #6e6e73; margin-bottom: 0; max-width: 800px; margin-left: auto; margin-right: auto;">So you can spend less time on admin and more on what you do best:<br><strong style="color: #9C8160; margin-top: 8px; display: inline-block;">designing spaces that inspire</strong>.</p>
+        <div style="display: flex; justify-content: center; margin-top: 16px; margin-bottom: 0;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; color: #9C8160;">
+            <path d="M12 4V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <iframe id="orderIframe" class="modal-iframe" src="" title="Order Form"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Preload iframe content for faster modal loading
+    let preloadedIframes = {};
+
+    function preloadIframe(url) {
+      if (!preloadedIframes[url]) {
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style.display = 'none';
+        iframe.style.position = 'absolute';
+        iframe.style.left = '-9999px';
+        document.body.appendChild(iframe);
+        preloadedIframes[url] = iframe;
+      }
+    }
+
+    // Preload both order form URLs on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Preload after a short delay to not interfere with initial page load
+      setTimeout(function() {
+        preloadIframe('https://orderledger.nine4.co/monthly');
+        preloadIframe('https://orderledger.nine4.co/quarterly');
+      }, 2000);
+
+      // Also preload when user first interacts with pricing section
+      const pricingSection = document.getElementById('pricing');
+      if (pricingSection) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              preloadIframe('https://orderledger.nine4.co/monthly');
+              preloadIframe('https://orderledger.nine4.co/quarterly');
+              observer.disconnect();
+            }
+          });
+        });
+        observer.observe(pricingSection);
+      }
+    });
+
+    // Modal functionality
+    function openModal(url) {
+      const modal = document.getElementById('orderModal');
+      const iframe = document.getElementById('orderIframe');
+
+      // Use preloaded iframe if available
+      if (preloadedIframes[url]) {
+        // Move the preloaded iframe into the modal
+        const preloadedIframe = preloadedIframes[url];
+        preloadedIframe.style.display = '';
+        preloadedIframe.style.position = '';
+        preloadedIframe.style.left = '';
+        preloadedIframe.className = 'modal-iframe';
+
+        // Replace the placeholder iframe
+        iframe.parentNode.replaceChild(preloadedIframe, iframe);
+        delete preloadedIframes[url];
+      } else {
+        // Fallback to setting src directly
+        iframe.src = url;
+      }
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('orderModal');
+      const currentIframe = modal.querySelector('.modal-iframe');
+
+      modal.style.display = 'none';
+
+      if (currentIframe) {
+        // Move the iframe back to hidden state for potential reuse
+        currentIframe.style.display = 'none';
+        currentIframe.style.position = 'absolute';
+        currentIframe.style.left = '-9999px';
+        document.body.appendChild(currentIframe);
+
+        // Create a new placeholder iframe for the modal
+        const placeholderIframe = document.createElement('iframe');
+        placeholderIframe.id = 'orderIframe';
+        placeholderIframe.className = 'modal-iframe';
+        placeholderIframe.title = 'Order Form';
+        modal.querySelector('.modal-content').appendChild(placeholderIframe);
+      }
+
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal when clicking outside the modal content
+    window.onclick = function(event) {
+      const modal = document.getElementById('orderModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('orderModal');
+        if (modal.style.display === 'block') {
+          closeModal();
+        }
+      }
+    });
+  </script>
+
+  <!-- Mobile Menu JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileMenu = document.querySelector('.mobile-menu');
+
+      if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+          mobileMenuToggle.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+          });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+          if (!mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
